@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trastes | Taller de Luthier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .component-bg {
+      background: linear-gradient(180deg, #F5F2EB 0%, #F7F1EB 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .pixel-button {
+      width: 207px;
+      height: 50px;
+      background: #C14D23;
+      border: none;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2px 0 20px;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 21.333px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: Inter, sans-serif;
+    }
+
+    .button-text {
+      text-align: left;
+    }
+
+    .button-circle {
+      width: 47px;
+      height: 47px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button-circle svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: #C14D23;
+      stroke-width: 2.5;
+    }
+
+    /* Responsive Hero Title Styling */
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #2D1610;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 4.0rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 5.8rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 80pt;
+      }
+    }
+
+    /* Ticker Animation and Styling */
+    @keyframes ticker-scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .animate-ticker {
+      display: flex;
+      width: max-content;
+      animation: ticker-scroll 35s linear infinite;
+    }
+
+    .ticker-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      padding-right: 3rem;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      color: #FFFFFF;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .ticker-dot {
+      color: #FFFFFF;
+      font-family: sans-serif;
+      font-style: normal;
+      font-weight: normal;
+      opacity: 0.8;
+      font-size: 1rem;
+    }
+
+    /* ── Word-reveal on scroll ── */
+    .wr {
+      color: rgba(45, 22, 16, 0.18);
+      transition: color 0.45s ease;
+      display: inline;
+    }
+
+    .wr.lit {
+      color: #2D1610;
+    }
+
+    /* ── Contenedor de Secciones Sticky Stacking ── */
+    .sections-carousel-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .carousel-slide {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* Barra de progreso */
+    .carousel-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(200, 75, 10, 0.12);
+      z-index: 200;
+      overflow: hidden;
+    }
+
+    .carousel-progress-fill {
+      height: 100%;
+      background: #C84B0A;
+      width: 0%;
+      transition: none;
+    }
+
+    /* Dot navigation */
+    .carousel-dots {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(193, 77, 35, 0.25);
+      border: 1.5px solid rgba(193, 77, 35, 0.4);
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 0;
+      display: block;
+    }
+
+    .carousel-dot.active {
+      background: #C84B0A;
+      border-color: #C84B0A;
+      height: 28px;
+      border-radius: 4px;
+    }
+
+    /* ── Interactive Strings Section Styles ── */
+    .string-row {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    .string-handle {
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border-radius: 50%;
+      cursor: grab;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      z-index: 30;
+      position: absolute;
+    }
+
+    .string-handle:active {
+      cursor: grabbing;
+    }
+
+    #strings-interactive-section circle {
+      transition: r 0.15s ease, fill 0.15s ease;
+    }
+
+    #strings-interactive-section circle:hover {
+      r: 8px;
+      fill: #BEBC7E;
+    }
+
+    .string-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: #BEBC7E;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Card Flip Component Styles ── */
+    .taller-card-container {
+      perspective: 1500px;
+      width: 100%;
+      max-width: 380px;
+      height: 480px;
+    }
+
+    .taller-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+      transform-style: preserve-3d;
+    }
+
+    .taller-card-container.flipped .taller-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .taller-card-front,
+    .taller-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0 100px 0 100px;
+      overflow: hidden;
+    }
+
+    .taller-card-front {
+      background: #000;
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+
+    .taller-card-back {
+      background: #441714;
+      color: #F5F2EB;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .taller-card-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      color: #441714;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .taller-card-btn:hover {
+      transform: scale(1.12);
+    }
+
+    .hover-scale-wood {
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .hover-scale-wood:hover {
+      transform: scale(1.08);
+    }
+
+    /* ── Sección Testimonios ── */
+    .testimonio-slide {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .testimonio-slide.active {
+      opacity: 1;
+      visibility: visible;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonio-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .testimonio-dot.active {
+      background: #C84B0A;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body class="relative min-h-screen bg-[#F5F2EB] text-[#2D1610] antialiased">
+  <main>
+    <div style="width:100%; background-image: url('bghero.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;">
+    <div
+      class="relative mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px] h-screen flex flex-col justify-between pt-3 pb-6 box-border">
+      <header
+        class="mx-auto flex max-w-[1400px] w-full flex-col items-center justify-between gap-4 rounded-full bg-white/30 px-8 py-3 sm:py-0 sm:h-[60px] text-sm font-semibold text-[#2D1610] shadow-[0_10px_30px_rgba(45,22,16,0.04)] border border-white/45 backdrop-blur-lg sm:flex-row">
+        <a href="#" class="flex items-center">
+          <img src="trasteslogo.png" alt="Trastes" class="h-6 w-auto object-contain" />
+        </a>
+        <nav class="flex flex-wrap justify-center gap-8 font-sans text-[14px] tracking-normal uppercase text-[#2D1610]">
+          <a href="#curso" class="transition hover:text-[#C84B0A]">Curso</a>
+          <a href="#sobre-nosotros" class="transition hover:text-[#C84B0A]">Sobre nosotros</a>
+          <a href="#contacto" class="transition hover:text-[#C84B0A]">Contacto</a>
+        </nav>
+        <a href="#curso"
+          class="group inline-flex h-[46px] w-[190px] items-center justify-between rounded-full border border-transparent bg-[#C84B0A] px-5 pr-[5px] text-[12px] font-semibold uppercase text-white shadow-[0_12px_30px_rgba(200,75,10,0.24)] transition hover:border-[#C84B0A] hover:bg-transparent hover:text-[#C84B0A]">
+          <span class="text-left">CONOCER MÁS</span>
+          <span
+            class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#F7F2EA] transition group-hover:bg-[#C84B0A] group-hover:text-white">
+            <svg class="h-[30px] w-[30px] text-[#C84B0A]" viewBox="0 0 27 27" fill="none"
+              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </a>
+      </header>
+
+      <section
+        class="relative mx-auto flex-1 flex flex-col items-center justify-center w-full min-h-0 pt-10 pb-4 md:pt-16 md:pb-6">
+        <!-- Capa del Título (detrás de la guitarra) -->
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-start pt-10 sm:pt-14 lg:pt-[5vh] pointer-events-none z-0">
+          <h1 class="select-none hero-title">
+            Del primer corte al<br />
+            <span class="font-bold italic">primer acorde</span>
+          </h1>
+        </div>
+
+        <!-- Capa de la Guitarra (flotante, delante del título) -->
+        <div
+          class="relative z-10 flex items-center justify-center w-[341px] h-[442px] max-w-full pointer-events-none transform translate-y-[49px] sm:translate-y-[67px]">
+          <img src="guitar.png" alt="Guitarra Trastes"
+            class="w-[341px] h-[442px] max-w-full object-contain drop-shadow-2xl select-none" />
+        </div>
+
+        <!-- Capa del Texto y Botón (esquina inferior derecha) -->
+        <div
+          class="z-20 w-full max-w-[360px] mt-20 flex flex-col items-start gap-[21px] p-4 lg:absolute lg:right-0 lg:bottom-4 lg:p-0">
+          <p class="text-[#4E4139]" style="font-size: 16px; line-height: 20px; font-family: 'Inter', sans-serif;">
+            Conoce el oficio de la Lutheria desde cerca, descubrí su uso, técnica y se parte de este oficio único que te
+            conecta con la música.
+          </p>
+          <a href="#curso"
+            class="group inline-flex h-[46px] w-[190px] items-center justify-between rounded-full border border-transparent bg-[#C84B0A] px-5 pr-[5px] text-[12px] font-semibold uppercase text-white shadow-[0_12px_30px_rgba(200,75,10,0.24)] transition hover:border-[#C84B0A] hover:bg-transparent hover:text-[#C84B0A]">
+            <span class="text-left">CONOCER MÁS</span>
+            <span
+              class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#F7F2EA] transition group-hover:bg-[#C84B0A] group-hover:text-white">
+              <svg class="h-[30px] w-[30px] text-[#C84B0A]" viewBox="0 0 27 27" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </a>
+        </div>
+      </section>
+    </div><!-- /hero content -->
+    </div><!-- /hero bg wrapper -->
+
+    <!-- Barra de Destacados (Ticker) -->
+    <div class="relative w-full overflow-hidden bg-[#B9B16A] h-[66px] flex items-center border-none shadow-none z-30">
+      <div class="animate-ticker">
+        <div class="ticker-content">
+          <span class="ticker-item">Artesanal</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Acústica</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Reparación</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Construcción</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Personalización</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Precisión</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Sonido</span> <span class="ticker-dot">•</span>
+        </div>
+        <div class="ticker-content" aria-hidden="true">
+          <span class="ticker-item">Artesanal</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Acústica</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Reparación</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Construcción</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Personalización</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Precisión</span> <span class="ticker-dot">•</span>
+          <span class="ticker-item">Sonido</span> <span class="ticker-dot">•</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Frase Destacada -->
+    <section id="phrase-section"
+      class="py-20 md:py-28 px-[100px] text-[#2D1610] relative z-20 flex justify-start items-center w-full"
+      style="background-image: url('naranjabg.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;">
+      <div
+        class="w-full flex flex-col gap-[28px] font-display font-bold tracking-tight text-left text-xl sm:text-2xl md:text-[2rem] lg:text-[2.4rem] xl:text-[2.85rem]">
+
+        <!-- Línea 1 -->
+        <span class="flex flex-wrap items-center gap-[27px] leading-none">
+          <span class="flex flex-wrap gap-[0.25em] leading-none">
+            <span class="wr">Cada</span>
+            <span class="wr">instrumento</span>
+            <span class="wr">tiene</span>
+            <span class="wr">una</span>
+            <span class="wr">voz</span>
+            <span class="wr">propia</span>
+          </span>
+          <img src="fraseimg1.png" alt="Voz propia" class="h-[1.1em] w-auto object-cover flex-shrink-0"
+            style="border-radius: 0 25px 0 25px; opacity:0.2; transition: opacity 0.45s ease;" data-img-reveal />
+        </span>
+
+        <!-- Línea 2 -->
+        <span class="flex flex-wrap items-center gap-[27px] leading-none">
+          <span class="flex flex-wrap gap-[0.25em] leading-none">
+            <span class="wr">creemos</span>
+            <span class="wr">en</span>
+            <span class="wr">el</span>
+            <span class="wr">valor</span>
+            <span class="wr">del</span>
+          </span>
+          <img src="fraseimg2.png" alt="Trabajo artesanal" class="h-[1.1em] w-auto object-cover flex-shrink-0"
+            style="border-radius: 0 25px 0 25px; opacity:0.2; transition: opacity 0.45s ease;" data-img-reveal />
+          <span class="flex flex-wrap gap-[0.25em] leading-none">
+            <span class="wr">trabajo</span>
+            <span class="wr">artesanal</span>
+          </span>
+        </span>
+
+        <!-- Línea 3 -->
+        <span class="flex flex-wrap items-center gap-[27px] leading-none">
+          <span class="flex flex-wrap gap-[0.25em] leading-none">
+            <span class="wr">en</span>
+            <span class="wr">los</span>
+            <span class="wr">detalles</span>
+          </span>
+          <img src="fraseimg3.png" alt="Detalle pieza" class="h-[1.1em] w-auto object-cover flex-shrink-0"
+            style="border-radius: 0 25px 0 25px; opacity:0.2; transition: opacity 0.45s ease;" data-img-reveal />
+          <span class="flex flex-wrap gap-[0.25em] leading-none">
+            <span class="wr">de</span>
+            <span class="wr">cada</span>
+            <span class="wr">pieza</span>
+            <span class="wr">y</span>
+            <span class="wr">en</span>
+            <span class="wr">el</span>
+            <span class="wr">tiempo</span>
+          </span>
+        </span>
+
+        <!-- Línea 4 -->
+        <span class="flex flex-wrap gap-[0.25em] leading-none">
+          <span class="wr">dedicado</span>
+          <span class="wr">a</span>
+          <span class="wr">comprender</span>
+          <span class="wr">su</span>
+          <span class="wr">esencia.</span>
+        </span>
+
+      </div>
+    </section>
+
+    <!-- ── Secciones Sticky Stacking (Superposición Vertical) ── -->
+    <div id="sectionsCarousel" class="sections-carousel-wrapper">
+
+      <!-- Slide 1: Un oficio que deja su huella -->
+      <section class="carousel-slide px-[100px] w-full" id="sobre-nosotros" style="z-index: 10; background-image: url('naranjabg.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;">
+        <div class="flex flex-col md:flex-row items-center gap-[150px] w-full">
+
+          <!-- Foto izquierda -->
+          <div class="flex-shrink-0 w-full md:w-auto"
+            style="width: 577px; height: 383px; border-radius: 0 100px 0 100px;">
+            <img src="Fotoseccion1.png" alt="Luthería artesanal" class="object-cover w-full h-full"
+              style="width:100%; height:100%;" />
+          </div>
+
+          <!-- Texto derecha -->
+          <div class="flex flex-col gap-6 max-w-[520px]">
+            <h2
+              style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 70px; color: #2D1610; margin: 0; font-weight: 400;">
+              Un oficio que deja su<br />
+              <span style="font-weight: 600; font-style: italic; color: #C84B0A;">huella en la música</span>
+            </h2>
+            <p
+              style="font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.75; color: #4E4139; margin: 0; width: 521px; max-width: 100%;">
+              La luthería combina conocimientos técnicos, trabajo artesanal y una gran comprensión del funcionamiento y
+              la acústica de cada instrumento, pudiendo asi no solo conservar la identidad sonora de cada instrumento
+              sino también mantener su funcionamiento.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Slide 2: El corazón del taller -->
+      <section class="carousel-slide px-[100px] w-full" id="el-corazon"
+        style="z-index: 20; box-shadow: 0 -15px 30px rgba(45, 22, 16, 0.08); background-image: url('orangebg.png'); background-size: cover; background-position: center center; background-repeat: no-repeat;">
+        <div class="flex flex-col md:flex-row items-center gap-[150px] w-full">
+
+          <!-- Texto izquierda -->
+          <div class="flex flex-col gap-[29px] flex-1">
+            <h2
+              style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 70px; color: #2D1610; margin: 0; font-weight: 400;">
+              El <span style="font-weight: 600; font-style: italic; color: #C84B0A;">corazón</span> del taller
+            </h2>
+            <p
+              style="font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.75; color: #4E4139; margin: 0; width: 521px; max-width: 100%;">
+              Somos un emprendimiento nacido de la amistad y la pasión por la música. Desde hace más de 10 años nos
+              dedicamos a la construcción, restauración y calibración de instrumentos de cuerda, compartiendo un mismo
+              compromiso: crear piezas con identidad propia y transmitir el valor del trabajo artesanal a cada persona
+              que pasa por nuestro taller.
+            </p>
+            <!-- Botón -->
+            <a href="#curso"
+              class="group inline-flex h-[46px] w-[190px] items-center justify-between rounded-full border border-transparent bg-[#C84B0A] px-5 pr-[5px] text-[12px] font-semibold uppercase text-white shadow-[0_12px_30px_rgba(200,75,10,0.24)] transition hover:border-[#C84B0A] hover:bg-transparent hover:text-[#C84B0A]">
+              <span class="text-left">CONOCER MÁS</span>
+              <span
+                class="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#F7F2EA] transition group-hover:bg-[#C84B0A] group-hover:text-white">
+                <svg class="h-[30px] w-[30px] text-[#C84B0A]" viewBox="0 0 27 27" fill="none"
+                  xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </a>
+          </div>
+
+          <!-- Foto derecha -->
+          <div class="flex-shrink-0 overflow-hidden"
+            style="width: 577px; height: 383px; border-radius: 0 100px 0 100px;">
+            <img src="Fotoseccion2.png" alt="El equipo del taller" class="object-cover w-full h-full"
+              style="width:100%; height:100%;" />
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /sectionsCarousel -->
+
+    <!-- ── Sección Interactiva de Cuerdas (Strings) ── -->
+    <section id="strings-interactive-section"
+      style="background:#441714; height:450px; display:flex; align-items:center; overflow:hidden; position:relative;"
+      class="select-none">
+      <div
+        style="width:100%; max-width:1200px; margin:0 auto; padding:0 100px; display:flex; flex-direction:column; gap:30px;">
+
+        <!-- Row 1: ●── Donde cada ──● -->
+        <div class="string-row" id="row-1" style="height:50px;">
+          <svg class="absolute inset-0 w-full h-full pointer-events-none" id="string-svg-1">
+            <path id="path-1-left" stroke="white" stroke-width="1.5" fill="none" d="" />
+            <circle id="dot-1-left" r="5.5" fill="white" />
+            <path id="path-1-right" stroke="white" stroke-width="1.5" fill="none" d="" />
+            <circle id="dot-1-right" r="5.5" fill="white" />
+          </svg>
+          <span class="string-text absolute text-2xl md:text-[2.5rem] leading-none" id="text-1" style="left:20%;">Donde
+            cada</span>
+          <div class="string-handle" id="handle-1-left" style="left:8%;"></div>
+          <div class="string-handle" id="handle-1-right" style="left:92%;"></div>
+        </div>
+
+        <!-- Row 2: ●────────────────● cuerda -->
+        <div class="string-row" id="row-2" style="height:50px;">
+          <svg class="absolute inset-0 w-full h-full pointer-events-none" id="string-svg-2">
+            <path id="path-2" stroke="white" stroke-width="1.5" fill="none" d="" />
+            <circle id="dot-2-left" r="5.5" fill="white" />
+            <circle id="dot-2-right" r="5.5" fill="white" />
+          </svg>
+          <span class="string-text absolute italic text-2xl md:text-[2.5rem] leading-none" id="text-2"
+            style="left:85%;">cuerda</span>
+          <div class="string-handle" id="handle-2-left" style="left:8%;"></div>
+          <div class="string-handle" id="handle-2-right" style="left:78%;"></div>
+        </div>
+
+        <!-- Row 3: ●──────────────── encuentra -->
+        <div class="string-row" id="row-3" style="height:50px;">
+          <svg class="absolute inset-0 w-full h-full pointer-events-none" id="string-svg-3">
+            <path id="path-3" stroke="white" stroke-width="1.5" fill="none" d="" />
+            <circle id="dot-3-left" r="5.5" fill="white" />
+          </svg>
+          <span class="string-text absolute text-2xl md:text-[2.5rem] leading-none" id="text-3"
+            style="left:74%;">encuentra</span>
+          <div class="string-handle" id="handle-3-left" style="left:8%;"></div>
+        </div>
+
+        <!-- Row 4: su equilibrio ●──────────────── -->
+        <div class="string-row" id="row-4" style="height:50px;">
+          <svg class="absolute inset-0 w-full h-full pointer-events-none" id="string-svg-4">
+            <path id="path-4" stroke="white" stroke-width="1.5" fill="none" d="" />
+            <circle id="dot-4-left" r="5.5" fill="white" />
+          </svg>
+          <span class="string-text absolute italic text-2xl md:text-[2.5rem] leading-none" id="text-4"
+            style="left:8%;">su equilibrio</span>
+          <div class="string-handle" id="handle-4-left" style="left:38%;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── ¿Cómo trabajamos en el taller? ── -->
+    <section id="como-trabajamos" style="background:#F5F2EB; padding:80px 100px; position:relative; z-index:1;">
+
+      <!-- Título -->
+      <h2
+        style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(1.6rem,3vw,2.6rem); text-align:center; color:#2D1610; margin:0 0 58px 0;">
+        ¿Cómo trabajamos en el <em style="font-weight:600; font-style:italic; color:#C84B0A;">taller?</em>
+      </h2>
+
+      <!-- Cards grid -->
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap: 60px; max-width:1200px; margin:0 auto;">
+
+        <!-- ── Card 1: Diseñamos ── -->
+        <div class="taller-card-container" id="card-1">
+          <div class="taller-card-inner">
+
+            <!-- FRONT -->
+            <div class="taller-card-front">
+              <video autoplay muted loop playsinline
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <source src="videocard1.mp4" type="video/mp4">
+              </video>
+              <!-- dark top gradient + title -->
+              <div
+                style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,0.55) 0%,transparent 60%);">
+                <h3
+                  style="font-family:'Playfair Display',serif;font-weight:700;font-size:2rem;color:#fff;margin:0;padding:28px 24px;">
+                  Diseñamos</h3>
+              </div>
+              <!-- i button -->
+              <button class="taller-card-btn" onclick="flipCard('card-1')" aria-label="Más info"
+                style="position:absolute;bottom:20px;right:20px;">i</button>
+            </div>
+
+            <!-- BACK -->
+            <div class="taller-card-back">
+              <div style="padding:32px 28px 0;">
+                <h3
+                  style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.9rem;color:#F5F2EB;margin:0 0 18px;">
+                  Diseñamos</h3>
+                <p style="font-family:'Inter',sans-serif;font-size:0.92rem;line-height:1.75;color:#F5F2EB;margin:0;">
+                  Cada instrumento comienza con un diseño cuidadoso: estudiamos las proporciones, trazamos las curvas y
+                  planificamos cada detalle para que la forma final sea perfecta en sonido y estética.</p>
+              </div>
+              <div style="padding:20px 28px 28px;display:flex;justify-content:flex-end;">
+                <button class="taller-card-btn" onclick="flipCard('card-1')" aria-label="Cerrar">&#x2715;</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Card 2: Construimos ── -->
+        <div class="taller-card-container" id="card-2">
+          <div class="taller-card-inner">
+
+            <!-- FRONT -->
+            <div class="taller-card-front">
+              <video autoplay muted loop playsinline
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <source src="videocard2.mp4" type="video/mp4">
+              </video>
+              <div
+                style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,0.55) 0%,transparent 60%);">
+                <h3
+                  style="font-family:'Playfair Display',serif;font-weight:700;font-size:2rem;color:#fff;margin:0;padding:28px 24px;">
+                  Construimos</h3>
+              </div>
+              <button class="taller-card-btn" onclick="flipCard('card-2')" aria-label="Más info"
+                style="position:absolute;bottom:20px;right:20px;">i</button>
+            </div>
+
+            <!-- BACK -->
+            <div class="taller-card-back">
+              <div style="padding:32px 28px 0;">
+                <h3
+                  style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.9rem;color:#F5F2EB;margin:0 0 18px;">
+                  Construimos</h3>
+                <p style="font-family:'Inter',sans-serif;font-size:0.92rem;line-height:1.75;color:#F5F2EB;margin:0;">
+                  Trabajamos cada componente de nuestros instrumentos de forma artesanal: cortamos, moldeamos,
+                  ensamblamos y damos forma al instrumento respetando las diferentes características de cada madera.</p>
+              </div>
+              <div style="padding:20px 28px 28px;display:flex;justify-content:flex-end;">
+                <button class="taller-card-btn" onclick="flipCard('card-2')" aria-label="Cerrar">&#x2715;</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Card 3: Calibramos ── -->
+        <div class="taller-card-container" id="card-3">
+          <div class="taller-card-inner">
+
+            <!-- FRONT -->
+            <div class="taller-card-front">
+              <video autoplay muted loop playsinline
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <source src="videocard3.mp4" type="video/mp4">
+              </video>
+              <div
+                style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,0.55) 0%,transparent 60%);">
+                <h3
+                  style="font-family:'Playfair Display',serif;font-weight:700;font-size:2rem;color:#fff;margin:0;padding:28px 24px;">
+                  Calibramos</h3>
+              </div>
+              <button class="taller-card-btn" onclick="flipCard('card-3')" aria-label="Más info"
+                style="position:absolute;bottom:20px;right:20px;">i</button>
+            </div>
+
+            <!-- BACK -->
+            <div class="taller-card-back">
+              <div style="padding:32px 28px 0;">
+                <h3
+                  style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.9rem;color:#F5F2EB;margin:0 0 18px;">
+                  Calibramos</h3>
+                <p style="font-family:'Inter',sans-serif;font-size:0.92rem;line-height:1.75;color:#F5F2EB;margin:0;">El
+                  último paso es la calibración: ajustamos tensiones, puentes y clavijas hasta lograr la respuesta
+                  acústica exacta que cada instrumento requiere. Una afinación precisa es nuestra firma.</p>
+              </div>
+              <div style="padding:20px 28px 28px;display:flex;justify-content:flex-end;">
+                <button class="taller-card-btn" onclick="flipCard('card-3')" aria-label="Cerrar">&#x2715;</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /cards grid -->
+    </section><!-- /como-trabajamos -->
+
+    <!-- ── Título Sección Video Taller ── -->
+    <div style="background:#F5F2EB; padding:80px 100px 60px; box-sizing:border-box; text-align:center;">
+      <h2 style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(2rem,4vw,3.2rem); line-height:1.2; color:#2D1610; margin:0;">
+        El taller donde cada proyecto<br>
+        <em style="font-weight:600; font-style:italic; color:#C84B0A;">encuentra su lugar.</em>
+      </h2>
+    </div>
+
+    <!-- ── Sección Video Taller ── -->
+    <section id="taller-video-section" style="background:#F5F2EB; padding:0;">
+
+      <!-- Video full-width con controles personalizados -->
+      <div id="taller-video-wrapper"
+        style="position:relative; width:100%; overflow:hidden; background:#000; cursor:pointer;">
+
+        <video id="taller-video" src="tallervideo.mp4"
+          style="width:100%; display:block; max-height:70vh; object-fit:cover;" preload="metadata"></video>
+
+        <!-- Overlay oscuro -->
+        <div id="taller-video-overlay"
+          style="position:absolute;inset:0;background:rgba(20,8,4,0.38);transition:opacity 0.3s ease;pointer-events:none;">
+        </div>
+
+        <!-- Botón Play/Pause centrado -->
+        <div id="taller-play-btn" onclick="toggleTallerVideo(event)"
+          style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,0.25);transition:transform 0.2s ease,opacity 0.3s ease;z-index:10;cursor:pointer;">
+          <svg id="taller-play-icon" width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <polygon points="9,5 22,13 9,21" fill="#441714" />
+          </svg>
+        </div>
+
+        <!-- Barra de controles inferior -->
+        <div id="taller-controls"
+          style="position:absolute;bottom:0;left:0;right:0;padding:14px 24px 16px;background:linear-gradient(to top,rgba(20,5,2,0.75) 0%,transparent 100%);display:flex;flex-direction:column;gap:8px;z-index:10;opacity:0;transition:opacity 0.3s ease;">
+
+          <!-- Barra de progreso clicable -->
+          <div id="taller-progress-bar" onclick="seekTallerVideo(event)"
+            style="width:100%;height:4px;background:rgba(255,255,255,0.3);border-radius:2px;cursor:pointer;position:relative;">
+            <div id="taller-progress-fill"
+              style="height:100%;width:0%;background:#BEBC7E;border-radius:2px;transition:width 0.1s linear;pointer-events:none;">
+            </div>
+          </div>
+
+          <!-- Tiempo: actual / total -->
+          <div style="display:flex;align-items:center;gap:12px;">
+            <button onclick="toggleTallerVideo(event)"
+              style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;">
+              <svg id="taller-ctrl-icon" width="18" height="18" viewBox="0 0 26 26" fill="none">
+                <polygon points="9,5 22,13 9,21" fill="#FFFFFF" />
+              </svg>
+            </button>
+            <span id="taller-time-current"
+              style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.85);letter-spacing:0.03em;">0:00</span>
+            <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.45);">/</span>
+            <span id="taller-time-total"
+              style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(255,255,255,0.5);letter-spacing:0.03em;">0:00</span>
+          </div>
+
+        </div><!-- /controls -->
+      </div>
+    </section>
+
+    <!-- ── Sección Maderas ── -->
+    <section id="maderas-section" style="background:#F5F2EB; padding:120px 0; position:relative; z-index:1;"
+      class="px-6 md:px-[100px]">
+      <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center;">
+
+        <!-- Título centrado -->
+        <h2
+          style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(2rem,4vw,3.2rem); line-height:1.2; text-align:center; color:#2D1610; margin:0 0 16px 0;">
+          Maderas que dan vida al <em style="font-weight:600; font-style:italic; color:#C84B0A;">sónido.</em>
+        </h2>
+
+        <!-- Bajada (Subtítulo) -->
+        <p
+          style="font-family:'Inter',sans-serif; font-size:20px; line-height:25px; text-align:center; color:#4E4139; max-width:850px; margin:0 0 79px 0;">
+          Cada especie aporta una personalidad diferente al instrumento. Su densidad, veta y resonancia influyen
+          directamente en el carácter del sonido.
+        </p>
+
+        <!-- Grid de 4 Maderas -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-[35px] w-full">
+
+          <!-- Madera 1: Palisandro -->
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:20px;">
+            <div
+              style="width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+              <img src="madera1.png" alt="Palisandro" style="width:100%; height:100%; object-fit:contain;"
+                class="hover-scale-wood" />
+            </div>
+            <h3
+              style="font-family:'Playfair Display',serif; font-weight:400; font-size:15px; color:#2D1610; margin:0; letter-spacing:0.03em;">
+              Palisandro
+            </h3>
+          </div>
+
+          <!-- Madera 2: Algarrobo -->
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:20px;">
+            <div
+              style="width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+              <img src="madera2.png" alt="Algarrobo" style="width:100%; height:100%; object-fit:contain;"
+                class="hover-scale-wood" />
+            </div>
+            <h3
+              style="font-family:'Playfair Display',serif; font-weight:400; font-size:15px; color:#2D1610; margin:0; letter-spacing:0.03em;">
+              Algarrobo
+            </h3>
+          </div>
+
+          <!-- Madera 3: Ciprés -->
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:20px;">
+            <div
+              style="width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+              <img src="madera3.png" alt="Ciprés" style="width:100%; height:100%; object-fit:contain;"
+                class="hover-scale-wood" />
+            </div>
+            <h3
+              style="font-family:'Playfair Display',serif; font-weight:400; font-size:15px; color:#2D1610; margin:0; letter-spacing:0.03em;">
+              Ciprés
+            </h3>
+          </div>
+
+          <!-- Madera 4: Ábeto -->
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:20px;">
+            <div
+              style="width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+              <img src="madera4.png" alt="Ábeto" style="width:100%; height:100%; object-fit:contain;"
+                class="hover-scale-wood" />
+            </div>
+            <h3
+              style="font-family:'Playfair Display',serif; font-weight:400; font-size:15px; color:#2D1610; margin:0; letter-spacing:0.03em;">
+              Ábeto
+            </h3>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section id="curso"
+      style="background:#F5F2EB; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 0; position:relative; z-index:1; box-sizing:border-box; overflow:hidden;">
+
+      <!-- Título -->
+      <div style="text-align:center; margin-bottom:52px; padding:0 40px;">
+        <h2
+          style="font-family:'Playfair Display',serif; font-weight:400; font-size:clamp(2rem,4vw,3.2rem); line-height:1.2; color:#2D1610; margin:0;">
+          Viví la <em style="font-weight:600; font-style:italic; color:#C84B0A;">experiencia</em> del taller
+        </h2>
+      </div>
+
+      <!-- Carousel: arrows + cards -->
+      <div
+        style="position:relative; width:100%; display:flex; align-items:center; justify-content:center; min-height:530px; box-sizing:border-box;">
+
+        <!-- Arrow Left -->
+        <button id="curso-prev-btn" onclick="cursoPrev()" aria-label="Anterior curso"
+          style="position:absolute; left:48px; z-index:30; width:56px; height:56px; border-radius:50%; background:#fff; border:2px solid rgba(107,26,26,0.20); box-shadow:0 6px 20px rgba(45,22,16,0.12); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.25s ease;"
+          onmouseenter="this.style.background='#6B1A1A';" onmouseleave="this.style.background='#fff';">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="pointer-events:none;">
+            <path d="M15 18l-6-6 6-6" stroke="#6B1A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+              class="curso-arrow-path-prev" />
+          </svg>
+        </button>
+
+        <!-- Cards container (relative, cards positioned absolutely) -->
+        <div id="curso-cards-container"
+          style="position:relative; width:100%; max-width:1150px; height:480px; display:flex; align-items:center; justify-content:center; overflow:visible;">
+
+          <!-- Card 0 -->
+          <article class="curso-card" id="curso-card-0" onclick="selectCurso(0)"
+            style="position:absolute; width:370px; height:480px; border-radius:28px; display:flex; flex-direction:column; transition:all 0.6s cubic-bezier(0.25, 1, 0.5, 1); box-sizing:border-box; cursor:pointer; overflow:hidden;">
+            <div
+              style="margin:10px 10px 0 10px; border-radius:0 60px 0 60px; overflow:hidden; height:180px; flex-shrink:0;">
+              <img src="cursocriolla.png" alt="Construcción Guitarra Criolla"
+                style="width:100%; height:100%; object-fit:cover; object-position:center;" />
+            </div>
+            <div style="padding:18px 20px 24px; display:flex; flex-direction:column; gap:12px; flex:1;">
+              <div style="display:flex; flex-wrap:nowrap; gap:6px; align-items:center; line-height:1;">
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">Nivel
+                  Inicial</span>
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">4
+                  meses</span>
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">Presencial</span>
+              </div>
+              <h3 class="curso-title"
+                style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.25rem; line-height:1.25; margin:0; transition:color 0.6s ease;">
+                <span class="curso-num"
+                  style="font-style:italic; margin-right:6px; font-weight:400; transition:color 0.6s ease;">01</span>Construcción
+                de tu Guitarra Criolla
+              </h3>
+              <p class="curso-desc"
+                style="font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.65; margin:0; flex:1; transition:color 0.6s ease;">
+                Aprendé todo el proceso, desde la selección de la madera hasta el ajuste final, acompañado por luthiers
+                profesionales en cada etapa.
+              </p>
+              <div style="margin-top:auto; padding-top:8px;">
+                <a href="#"
+                  style="display:inline-flex; align-items:center; gap:10px; background:#C84B0A; color:#fff; font-family:'Inter',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; text-decoration:none; border-radius:999px; padding:9px 14px 9px 18px; box-shadow:0 8px 20px rgba(200,75,10,0.28);">
+                  <span>CONOCER MÁS</span>
+                  <span
+                    style="width:30px;height:30px;background:#F7F2EA;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="15" height="15" viewBox="0 0 27 27" fill="none">
+                      <path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="#C84B0A" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 1 -->
+          <article class="curso-card" id="curso-card-1" onclick="selectCurso(1)"
+            style="position:absolute; width:370px; height:480px; border-radius:28px; display:flex; flex-direction:column; transition:all 0.6s cubic-bezier(0.25, 1, 0.5, 1); box-sizing:border-box; cursor:pointer; overflow:hidden;">
+            <div
+              style="margin:10px 10px 0 10px; border-radius:0 60px 0 60px; overflow:hidden; height:180px; flex-shrink:0;">
+              <img src="Fotoseccion2.png" alt="Calibración y Puesta a Punto"
+                style="width:100%; height:100%; object-fit:cover; object-position:center;" />
+            </div>
+            <div style="padding:18px 20px 24px; display:flex; flex-direction:column; gap:12px; flex:1;">
+              <div style="display:flex; flex-wrap:nowrap; gap:6px; align-items:center; line-height:1;">
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">Nivel
+                  Medio</span>
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">3
+                  meses</span>
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">Presencial</span>
+              </div>
+              <h3 class="curso-title"
+                style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.25rem; line-height:1.25; margin:0; transition:color 0.6s ease;">
+                <span class="curso-num"
+                  style="font-style:italic; margin-right:6px; font-weight:400; transition:color 0.6s ease;">02</span>Calibración
+                y Puesta a Punto
+              </h3>
+              <p class="curso-desc"
+                style="font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.65; margin:0; flex:1; transition:color 0.6s ease;">
+                Aprendé a diagnosticar, ajustar la altura de cuerdas, calibrar el alma y optimizar la afinación de
+                instrumentos eléctricos y acústicos.
+              </p>
+              <div style="margin-top:auto; padding-top:8px;">
+                <a href="#"
+                  style="display:inline-flex; align-items:center; gap:10px; background:#C84B0A; color:#fff; font-family:'Inter',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; text-decoration:none; border-radius:999px; padding:9px 14px 9px 18px; box-shadow:0 8px 20px rgba(200,75,10,0.28);">
+                  <span>CONOCER MÁS</span>
+                  <span
+                    style="width:30px;height:30px;background:#F7F2EA;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="15" height="15" viewBox="0 0 27 27" fill="none">
+                      <path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="#C84B0A" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="curso-card" id="curso-card-2" onclick="selectCurso(2)"
+            style="position:absolute; width:370px; height:480px; border-radius:28px; display:flex; flex-direction:column; transition:all 0.6s cubic-bezier(0.25, 1, 0.5, 1); box-sizing:border-box; cursor:pointer; overflow:hidden;">
+            <div
+              style="margin:10px 10px 0 10px; border-radius:0 60px 0 60px; overflow:hidden; height:180px; flex-shrink:0;">
+              <img src="fraseimg1.png" alt="Construcción de Guitarra Eléctrica"
+                style="width:100%; height:100%; object-fit:cover; object-position:center;" />
+            </div>
+            <div style="padding:18px 20px 24px; display:flex; flex-direction:column; gap:12px; flex:1;">
+              <div style="display:flex; flex-wrap:nowrap; gap:6px; align-items:center; line-height:1;">
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">Avanzado</span>
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">5
+                  meses</span>
+                <span
+                  style="font-family:'Playfair Display',Georgia,serif; font-size:12px; font-weight:600; color:#441714; background:#C0B982; border-radius:999px; padding:6px 16px; white-space:nowrap; display:inline-block; line-height:1;">Intensivo</span>
+              </div>
+              <h3 class="curso-title"
+                style="font-family:'Playfair Display',serif; font-weight:700; font-size:1.25rem; line-height:1.25; margin:0; transition:color 0.6s ease;">
+                <span class="curso-num"
+                  style="font-style:italic; margin-right:6px; font-weight:400; transition:color 0.6s ease;">03</span>Construcción
+                de Guitarra Eléctrica
+              </h3>
+              <p class="curso-desc"
+                style="font-family:'Inter',sans-serif; font-size:0.82rem; line-height:1.65; margin:0; flex:1; transition:color 0.6s ease;">
+                Diseñá el cuerpo, seleccioná maderas tonales y aprendé el cableado de micrófonos para crear un
+                instrumento eléctrico desde cero.
+              </p>
+              <div style="margin-top:auto; padding-top:8px;">
+                <a href="#"
+                  style="display:inline-flex; align-items:center; gap:10px; background:#C84B0A; color:#fff; font-family:'Inter',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; text-decoration:none; border-radius:999px; padding:9px 14px 9px 18px; box-shadow:0 8px 20px rgba(200,75,10,0.28);">
+                  <span>CONOCER MÁS</span>
+                  <span
+                    style="width:30px;height:30px;background:#F7F2EA;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="15" height="15" viewBox="0 0 27 27" fill="none">
+                      <path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="#C84B0A" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Arrow Right -->
+        <button id="curso-next-btn" onclick="cursoNext()" aria-label="Siguiente curso"
+          style="position:absolute; right:48px; z-index:30; width:56px; height:56px; border-radius:50%; background:#fff; border:2px solid rgba(107,26,26,0.20); box-shadow:0 6px 20px rgba(45,22,16,0.12); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.25s ease;"
+          onmouseenter="this.style.background='#6B1A1A';" onmouseleave="this.style.background='#fff';">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="pointer-events:none;">
+            <path d="M9 18l6-6-6-6" stroke="#6B1A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="curso-arrow-path-next"/>
+          </svg>
+        </button>
+
+      </div><!-- /carousel -->
+
+    </section><!-- /curso -->
+
+    <!-- ── Sección Testimonios ── -->
+    <section id="testimonios" style="background:#C0B982; min-height:80vh; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; overflow:hidden; padding:80px 0; margin-top:150px;">
+      <div style="max-width:1100px; width:100%; margin:0 auto; padding:0 100px; box-sizing:border-box; text-align:left; position:relative;">
+
+        <!-- Título Fijo (no cambia) -->
+        <div style="text-align:center; margin-bottom:56px;">
+          <span style="font-family:'Playfair Display',Georgia,serif; font-size:clamp(1rem, 2vw, 1.25rem); font-weight:400; color:#2D1610; letter-spacing:0.02em;">
+            Ellos ya confiaron en nosotros
+          </span>
+        </div>
+
+        <!-- Slides Wrapper -->
+        <div style="position:relative; min-height:300px; width:100%;">
+
+          <!-- Slide 1 (Active) -->
+          <div class="testimonio-slide active" data-index="0">
+            <div style="position:relative; z-index:2; max-width:920px; margin:0 auto;">
+              <!-- Large Quotes behind text -->
+              <span style="position:absolute; top:-110px; left:-15px; font-size:320px; font-family:'Playfair Display',Georgia,serif; font-weight:700; color:#FFFFFF; opacity:0.5; z-index:1; line-height:1; user-select:none; pointer-events:none;">“</span>
+              
+              <!-- Review Text -->
+              <blockquote style="position:relative; z-index:2; margin:0; font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(1.4rem, 2.5vw, 2.2rem); line-height:1.4; color:#2D1610;">
+                "El curso superó mis expectativas. Aprendimos cada etapa del proceso con mucha dedicación y siempre acompañados por los profesores. Escuchar el primer acorde de una guitarra construida con mis propias manos fue un momento inolvidable."
+              </blockquote>
+              
+              <!-- Author -->
+              <div style="margin-top:36px; position:relative; z-index:2;">
+                <cite style="font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:1.35rem; color:#2D1610; display:block; margin-bottom:4px; font-style:normal;">
+                  Luciana Martinez
+                </cite>
+                <span style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(45,22,16,0.78); font-weight:500;">
+                  Alumno 2025
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="testimonio-slide" data-index="1">
+            <div style="position:relative; z-index:2; max-width:920px; margin:0 auto;">
+              <!-- Large Quotes behind text -->
+              <span style="position:absolute; top:-110px; left:-15px; font-size:320px; font-family:'Playfair Display',Georgia,serif; font-weight:700; color:#FFFFFF; opacity:0.5; z-index:1; line-height:1; user-select:none; pointer-events:none;">“</span>
+              
+              <!-- Review Text -->
+              <blockquote style="position:relative; z-index:2; margin:0; font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(1.4rem, 2.5vw, 2.2rem); line-height:1.4; color:#2D1610;">
+                "Es un taller único. Los profesores te transmiten no solo la técnica sino la pasión por la luthería. Salí del curso con conocimientos sólidos y un instrumento de calidad profesional creado por mí."
+              </blockquote>
+              
+              <!-- Author -->
+              <div style="margin-top:36px; position:relative; z-index:2;">
+                <cite style="font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:1.35rem; color:#2D1610; display:block; margin-bottom:4px; font-style:normal;">
+                  Sebastián Gómez
+                </cite>
+                <span style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(45,22,16,0.78); font-weight:500;">
+                  Alumno 2024
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="testimonio-slide" data-index="2">
+            <div style="position:relative; z-index:2; max-width:920px; margin:0 auto;">
+              <!-- Large Quotes behind text -->
+              <span style="position:absolute; top:-110px; left:-15px; font-size:320px; font-family:'Playfair Display',Georgia,serif; font-weight:700; color:#FFFFFF; opacity:0.5; z-index:1; line-height:1; user-select:none; pointer-events:none;">“</span>
+              
+              <!-- Review Text -->
+              <blockquote style="position:relative; z-index:2; margin:0; font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(1.4rem, 2.5vw, 2.2rem); line-height:1.4; color:#2D1610;">
+                "La atención a los detalles y la paciencia para enseñar son increíbles. Recomiendo este taller a cualquier amante de la música que quiera conectar con su instrumento desde su origen."
+              </blockquote>
+              
+              <!-- Author -->
+              <div style="margin-top:36px; position:relative; z-index:2;">
+                <cite style="font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:1.35rem; color:#2D1610; display:block; margin-bottom:4px; font-style:normal;">
+                  María Luz Peralta
+                </cite>
+                <span style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(45,22,16,0.78); font-weight:500;">
+                  Alumno 2025
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="testimonio-slide" data-index="3">
+            <div style="position:relative; z-index:2; max-width:920px; margin:0 auto;">
+              <!-- Large Quotes behind text -->
+              <span style="position:absolute; top:-110px; left:-15px; font-size:320px; font-family:'Playfair Display',Georgia,serif; font-weight:700; color:#FFFFFF; opacity:0.5; z-index:1; line-height:1; user-select:none; pointer-events:none;">“</span>
+              
+              <!-- Review Text -->
+              <blockquote style="position:relative; z-index:2; margin:0; font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(1.4rem, 2.5vw, 2.2rem); line-height:1.4; color:#2D1610;">
+                "Calibrar mi propia guitarra bajo la supervisión de un maestro luthier cambió por completo mi forma de tocar. Excelente ambiente de aprendizaje, herramientas profesionales y gran calidez humana."
+              </blockquote>
+              
+              <!-- Author -->
+              <div style="margin-top:36px; position:relative; z-index:2;">
+                <cite style="font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:1.35rem; color:#2D1610; display:block; margin-bottom:4px; font-style:normal;">
+                  Alejandro Ruiz
+                </cite>
+                <span style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(45,22,16,0.78); font-weight:500;">
+                  Alumno 2023
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="testimonio-slide" data-index="4">
+            <div style="position:relative; z-index:2; max-width:920px; margin:0 auto;">
+              <!-- Large Quotes behind text -->
+              <span style="position:absolute; top:-110px; left:-15px; font-size:320px; font-family:'Playfair Display',Georgia,serif; font-weight:700; color:#FFFFFF; opacity:0.5; z-index:1; line-height:1; user-select:none; pointer-events:none;">“</span>
+              
+              <!-- Review Text -->
+              <blockquote style="position:relative; z-index:2; margin:0; font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:clamp(1.4rem, 2.5vw, 2.2rem); line-height:1.4; color:#2D1610;">
+                "Un viaje hermoso. Trabajar la madera, ver cómo toma forma y finalmente escuchar su sonido es algo mágico. Gracias a todo el taller por guiarme en esta experiencia tan gratificante."
+              </blockquote>
+              
+              <!-- Author -->
+              <div style="margin-top:36px; position:relative; z-index:2;">
+                <cite style="font-family:'Playfair Display',Georgia,serif; font-weight:700; font-size:1.35rem; color:#2D1610; display:block; margin-bottom:4px; font-style:normal;">
+                  Valeria Rossi
+                </cite>
+                <span style="font-family:'Inter',sans-serif; font-size:0.9rem; color:rgba(45,22,16,0.78); font-weight:500;">
+                  Alumna 2024
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /wrapper -->
+
+        <!-- Navigation Dots -->
+        <div style="display:flex; justify-content:center; gap:12px; margin-top:48px; position:relative; z-index:10;">
+          <button class="testimonio-dot active" onclick="gotoTestimonio(0)" aria-label="Resena 1"></button>
+          <button class="testimonio-dot" onclick="gotoTestimonio(1)" aria-label="Resena 2"></button>
+          <button class="testimonio-dot" onclick="gotoTestimonio(2)" aria-label="Resena 3"></button>
+          <button class="testimonio-dot" onclick="gotoTestimonio(3)" aria-label="Resena 4"></button>
+          <button class="testimonio-dot" onclick="gotoTestimonio(4)" aria-label="Resena 5"></button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Sección Contacto y Formulario ── -->
+    <section id="contacto" style="background:#F5F2EB; padding:100px 0 120px; position:relative; z-index:1;">
+      <div style="max-width:1240px; margin:0 auto; padding:0 40px; box-sizing:border-box; display:grid; grid-template-columns: 1.15fr 1fr; gap:80px; align-items:stretch;">
+        
+        <!-- Columna Izquierda: Copla y Datos -->
+        <div style="display:flex; flex-direction:column; justify-content:space-between; min-height:480px;">
+          <!-- Headline -->
+          <h2 style="font-family:'Playfair Display', Georgia, serif; font-weight:400; font-size:clamp(2rem, 3.8vw, 3.25rem); line-height:1.2; color:#2D1610; margin:0;">
+            Cada instrumento tiene<br>una historia, <span style="font-weight:600; font-style:italic; color:#C84B0A;">empecemos<br>la tuya.</span>
+          </h2>
+
+          <!-- Datos de Contacto -->
+          <div style="display:flex; flex-direction:column; gap:20px; font-family:'Playfair Display', Georgia, serif; font-size:16px; color:#2D1610;">
+            <div style="display:flex; align-items:center; gap:32px;">
+              <span style="width:60px; color:rgba(45,22,16,0.55); font-weight:400;">Email</span>
+              <span style="font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:#2D1610;">trastes@gmail.com</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:32px;">
+              <span style="width:60px; color:rgba(45,22,16,0.55); font-weight:400;">Taller</span>
+              <span style="font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:#2D1610;">Uruguay 888, San Nicolas, CABA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Formulario -->
+        <div style="display:flex; flex-direction:column; justify-content:flex-start;">
+          <!-- Descripción -->
+          <p style="font-family:'Inter',sans-serif; font-size:15px; line-height:1.65; color:#4E4139; margin:0 0 44px 0;">
+            Completá el formulario y contanos tu proyecto, tu consulta o el curso que te interesa. Estaremos encantados de acompañarte en el primer paso de este recorrido.
+          </p>
+
+          <!-- Form -->
+          <form onsubmit="event.preventDefault(); alert('¡Gracias por tu mensaje! Nos contactaremos pronto.');" style="display:grid; grid-template-columns:1fr 1fr; gap:38px 28px; width:100%;">
+            <!-- Nombre Completo -->
+            <div style="grid-column: span 2; display:flex; flex-direction:column; gap:8px;">
+              <label for="form-nombre" style="font-family:'Playfair Display',Georgia,serif; font-size:16px; color:#2D1610; font-weight:500;">Nombre Completo</label>
+              <input type="text" id="form-nombre" required style="border:none; border-bottom:1px solid rgba(45, 22, 16, 0.28); background:transparent; padding:8px 0; font-family:'Inter',sans-serif; font-size:15px; color:#2D1610; outline:none; transition:border-color 0.3s;" onfocus="this.style.borderColor='#C84B0A'" onblur="this.style.borderColor='rgba(45, 22, 16, 0.28)'">
+            </div>
+            <!-- Email -->
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label for="form-email" style="font-family:'Playfair Display',Georgia,serif; font-size:16px; color:#2D1610; font-weight:500;">Email</label>
+              <input type="email" id="form-email" required style="border:none; border-bottom:1px solid rgba(45, 22, 16, 0.28); background:transparent; padding:8px 0; font-family:'Inter',sans-serif; font-size:15px; color:#2D1610; outline:none; transition:border-color 0.3s;" onfocus="this.style.borderColor='#C84B0A'" onblur="this.style.borderColor='rgba(45, 22, 16, 0.28)'">
+            </div>
+            <!-- Celular -->
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label for="form-celular" style="font-family:'Playfair Display',Georgia,serif; font-size:16px; color:#2D1610; font-weight:500;">Celular</label>
+              <input type="tel" id="form-celular" style="border:none; border-bottom:1px solid rgba(45, 22, 16, 0.28); background:transparent; padding:8px 0; font-family:'Inter',sans-serif; font-size:15px; color:#2D1610; outline:none; transition:border-color 0.3s;" onfocus="this.style.borderColor='#C84B0A'" onblur="this.style.borderColor='rgba(45, 22, 16, 0.28)'">
+            </div>
+            <!-- Mensaje -->
+            <div style="grid-column: span 2; display:flex; flex-direction:column; gap:8px;">
+              <label for="form-mensaje" style="font-family:'Playfair Display',Georgia,serif; font-size:16px; color:#2D1610; font-weight:500;">Mensaje</label>
+              <textarea id="form-mensaje" required rows="2" style="border:none; border-bottom:1px solid rgba(45, 22, 16, 0.28); background:transparent; padding:8px 0; font-family:'Inter',sans-serif; font-size:15px; color:#2D1610; outline:none; transition:border-color 0.3s; resize:none;" onfocus="this.style.borderColor='#C84B0A'" onblur="this.style.borderColor='rgba(45, 22, 16, 0.28)'"></textarea>
+            </div>
+            <!-- Button -->
+            <div style="grid-column: span 2; margin-top: 16px;">
+              <button type="submit" style="display:inline-flex; align-items:center; gap:12px; background:#C84B0A; color:#fff; font-family:'Inter',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; border-radius:999px; padding:8px 8px 8px 24px; border:none; cursor:pointer; transition:all 0.25s ease; box-shadow:0 8px 20px rgba(200,75,10,0.24);" onmouseenter="this.style.background='#c54607'" onmouseleave="this.style.background='#C84B0A'">
+                <span>ENVIAR</span>
+                <span style="width:32px; height:32px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <svg width="14" height="14" viewBox="0 0 27 27" fill="none"><path d="M7.875 19.125L19.125 7.875M19.125 19.125V7.875H7.875" stroke="#C84B0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Banner Taller Imagen Fiel a Figma -->
+    <div style="width:100%; overflow:hidden; position:relative; z-index:1; display:block;">
+      <img src="tallerbanner.png" alt="Taller de Luthería Trastes" style="width:100%; height:auto; display:block; object-fit:cover;" />
+    </div>
+
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer style="background:#2D1610; color:#F5F2EB; padding:80px 0 0 0; position:relative; overflow:hidden; z-index:10;">
+    <div style="max-width:1240px; margin:0 auto; padding:0 40px; box-sizing:border-box; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:40px;">
+      
+      <!-- Left: Logo & Text -->
+      <div style="display:flex; flex-direction:column; gap:24px; max-width:380px;">
+        <a href="#" style="display:inline-block;">
+          <img src="trasteslogo.png" alt="Trastes Logo Footer" style="height:32px; width:auto; object-fit:contain; filter:brightness(0) invert(1);" />
+        </a>
+        <p style="font-family:'Inter', sans-serif; font-size:14px; line-height:1.6; color:rgba(244, 239, 234, 0.7); margin:0;">
+          Más que una formación, es una invitación a descubrir el mundo detrás del sonido. Trastes es un espacio donde la tradición, la técnica y la música se encuentran.
+        </p>
+      </div>
+
+      <!-- Right: Navigation Links -->
+      <div style="display:flex; gap:100px;">
+        <!-- Column 1 -->
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <a href="#curso" style="font-family:'Inter', sans-serif; font-size:13px; font-weight:700; color:#F5F2EB; text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; transition:color 0.25s;" onmouseenter="this.style.color='#C84B0A'" onmouseleave="this.style.color='#F5F2EB'">CURSO</a>
+          <a href="#sobre-nosotros" style="font-family:'Inter', sans-serif; font-size:13px; font-weight:700; color:#F5F2EB; text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; transition:color 0.25s;" onmouseenter="this.style.color='#C84B0A'" onmouseleave="this.style.color='#F5F2EB'">SOBRE NOSOTROS</a>
+          <a href="#contacto" style="font-family:'Inter', sans-serif; font-size:13px; font-weight:700; color:#F5F2EB; text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; transition:color 0.25s;" onmouseenter="this.style.color='#C84B0A'" onmouseleave="this.style.color='#F5F2EB'">CONTACTO</a>
+        </div>
+        <!-- Column 2 -->
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <a href="#" style="font-family:'Inter', sans-serif; font-size:13px; font-weight:700; color:#F5F2EB; text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; transition:color 0.25s;" onmouseenter="this.style.color='#C84B0A'" onmouseleave="this.style.color='#F5F2EB'">INSTAGRAM</a>
+          <a href="#" style="font-family:'Inter', sans-serif; font-size:13px; font-weight:700; color:#F5F2EB; text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; transition:color 0.25s;" onmouseenter="this.style.color='#C84B0A'" onmouseleave="this.style.color='#F5F2EB'">FACEBOOK</a>
+          <a href="#" style="font-family:'Inter', sans-serif; font-size:13px; font-weight:700; color:#F5F2EB; text-decoration:none; text-transform:uppercase; letter-spacing:0.1em; transition:color 0.25s;" onmouseenter="this.style.color='#C84B0A'" onmouseleave="this.style.color='#F5F2EB'">TIKTOK</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Giant footer text cropped at the bottom -->
+    <div style="width:100%; overflow:hidden; position:relative; height:13.5vw; margin-top:50px; pointer-events:none; user-select:none; display:flex; justify-content:center; align-items:flex-start;">
+      <h2 style="font-family:'Oswald', 'Inter', sans-serif; font-weight:900; font-size:26.5vw; color:#C0B982; text-transform:uppercase; letter-spacing:-0.05em; margin:0; padding:0; line-height:0.8; display:block; position:relative; transform:scaleY(1.25); transform-origin:top;">
+        TRASTES
+      </h2>
+    </div>
+  </footer>
+
+
+  <script>
+    (function () {
+      var vid = document.getElementById('taller-video');
+      var wrapper = document.getElementById('taller-video-wrapper');
+      var overlay = document.getElementById('taller-video-overlay');
+      var playBtn = document.getElementById('taller-play-btn');
+      var playIcon = document.getElementById('taller-play-icon');
+      var ctrlIcon = document.getElementById('taller-ctrl-icon');
+      var controls = document.getElementById('taller-controls');
+      var fill = document.getElementById('taller-progress-fill');
+      var timeCur = document.getElementById('taller-time-current');
+      var timeTot = document.getElementById('taller-time-total');
+
+      function fmt(s) {
+        var m = Math.floor(s / 60);
+        var sec = Math.floor(s % 60);
+        return m + ':' + (sec < 10 ? '0' : '') + sec;
+      }
+
+      function setPauseUI() {
+        overlay.style.opacity = '1';
+        playBtn.style.opacity = '1';
+        playIcon.innerHTML = '<polygon points="9,5 22,13 9,21" fill="#441714"/>';
+        ctrlIcon.innerHTML = '<polygon points="9,5 22,13 9,21" fill="#FFFFFF"/>';
+      }
+
+      function setPlayUI() {
+        overlay.style.opacity = '0';
+        playBtn.style.opacity = '0';
+        playBtn.style.pointerEvents = 'none';
+        playIcon.innerHTML = '<rect x="7" y="5" width="4" height="16" rx="1" fill="#441714"/><rect x="15" y="5" width="4" height="16" rx="1" fill="#441714"/>';
+        ctrlIcon.innerHTML = '<rect x="7" y="5" width="4" height="16" rx="1" fill="#fff"/><rect x="15" y="5" width="4" height="16" rx="1" fill="#fff"/>';
+      }
+
+      window.toggleTallerVideo = function (e) {
+        if (e) e.stopPropagation();
+        if (vid.paused) {
+          vid.play();
+          setPlayUI();
+        } else {
+          vid.pause();
+          setPauseUI();
+          playBtn.style.pointerEvents = 'auto';
+        }
+      };
+
+      window.seekTallerVideo = function (e) {
+        e.stopPropagation();
+        var bar = document.getElementById('taller-progress-bar');
+        var rect = bar.getBoundingClientRect();
+        var pct = (e.clientX - rect.left) / rect.width;
+        vid.currentTime = pct * vid.duration;
+      };
+
+      vid.addEventListener('timeupdate', function () {
+        if (!vid.duration) return;
+        var pct = (vid.currentTime / vid.duration) * 100;
+        fill.style.width = pct + '%';
+        timeCur.textContent = fmt(vid.currentTime);
+      });
+
+      vid.addEventListener('loadedmetadata', function () {
+        timeTot.textContent = fmt(vid.duration);
+      });
+
+      vid.addEventListener('ended', function () {
+        setPauseUI();
+        playBtn.style.pointerEvents = 'auto';
+      });
+
+      /* Mostrar/ocultar controles al hover */
+      wrapper.addEventListener('mouseenter', function () {
+        controls.style.opacity = '1';
+      });
+      wrapper.addEventListener('mouseleave', function () {
+        controls.style.opacity = '0';
+      });
+
+      /* Click en el wrapper (no en botones) también togglea */
+      wrapper.addEventListener('click', function (e) {
+        if (e.target === wrapper || e.target === vid || e.target === overlay) {
+          window.toggleTallerVideo(e);
+        }
+      });
+    })();
+  </script>
+
+  <!-- Carousel JS removed: relying entirely on native CSS sticky stacking scroll physics -->
+
+  <!-- ── Word-reveal JS ── -->
+  <script>
+    (function () {
+      var section = document.getElementById('phrase-section');
+      if (!section) return;
+
+      var words = Array.from(section.querySelectorAll('.wr'));
+      var imgs = Array.from(section.querySelectorAll('[data-img-reveal]'));
+      var total = words.length;
+
+      function update() {
+        var rect = section.getBoundingClientRect();
+        var vh = window.innerHeight;
+
+        /* progress: 0 cuando la sección entra por abajo, 1 cuando ya salió por arriba */
+        /* Queremos revelar del 0% al 100% mientras la sección atraviesa el viewport */
+        var start = vh * 0.85;   /* empieza a revelar cuando la sección entra */
+        var end = vh * -0.05;  /* termina casi cuando el top llega al borde superior */
+
+        /* rect.top: distancia del top de la sección al top del viewport */
+        var progress = (start - rect.top) / (start - end);
+        progress = Math.max(0, Math.min(1, progress));
+
+        var litCount = Math.round(progress * total);
+
+        words.forEach(function (w, i) {
+          w.classList.toggle('lit', i < litCount);
+        });
+
+        /* Imágenes: aparecen a partir del 40% del progreso */
+        imgs.forEach(function (img, i) {
+          var threshold = 0.35 + i * 0.1;
+          img.style.opacity = progress >= threshold ? '1' : '0.18';
+        });
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+  </script>
+
+  <!-- ── Interactive Strings JS ── -->
+  <script>
+    (function () {
+      var section = document.getElementById('strings-interactive-section');
+      if (!section) return;
+
+      var rows = [
+        {
+          id: 'row-1',
+          handles: [
+            { el: document.getElementById('handle-1-left'), xPct: 8, bounds: { min: 0, max: 'text-left' } },
+            { el: document.getElementById('handle-1-right'), xPct: 92, bounds: { min: 'text-right', max: 100 } }
+          ],
+          text: document.getElementById('text-1'),
+          svg: document.getElementById('string-svg-1'),
+          paths: [
+            {
+              el: document.getElementById('path-1-left'),
+              start: 'handle-0',
+              end: 'text-left',
+              dotStart: document.getElementById('dot-1-left'),
+              dotEnd: null
+            },
+            {
+              el: document.getElementById('path-1-right'),
+              start: 'text-right',
+              end: 'handle-1',
+              dotStart: null,
+              dotEnd: document.getElementById('dot-1-right')
+            }
+          ],
+          pitches: [82.4, 110.0] // E2, A2
+        },
+        {
+          id: 'row-2',
+          handles: [
+            { el: document.getElementById('handle-2-left'), xPct: 8, bounds: { min: 0, max: 'handle-1' } },
+            { el: document.getElementById('handle-2-right'), xPct: 78, bounds: { min: 'handle-0', max: 'text-left' } }
+          ],
+          text: document.getElementById('text-2'),
+          svg: document.getElementById('string-svg-2'),
+          paths: [
+            {
+              el: document.getElementById('path-2'),
+              start: 'handle-0',
+              end: 'handle-1',
+              dotStart: document.getElementById('dot-2-left'),
+              dotEnd: document.getElementById('dot-2-right')
+            }
+          ],
+          pitches: [146.8, 146.8] // D3
+        },
+        {
+          id: 'row-3',
+          handles: [
+            { el: document.getElementById('handle-3-left'), xPct: 8, bounds: { min: 0, max: 'text-left' } }
+          ],
+          text: document.getElementById('text-3'),
+          svg: document.getElementById('string-svg-3'),
+          paths: [
+            {
+              el: document.getElementById('path-3'),
+              start: 'handle-0',
+              end: 'text-left',
+              dotStart: document.getElementById('dot-3-left'),
+              dotEnd: null
+            }
+          ],
+          pitches: [196.0] // G3
+        },
+        {
+          id: 'row-4',
+          handles: [
+            { el: document.getElementById('handle-4-left'), xPct: 38, bounds: { min: 'text-right', max: 100 } }
+          ],
+          text: document.getElementById('text-4'),
+          svg: document.getElementById('string-svg-4'),
+          paths: [
+            {
+              el: document.getElementById('path-4'),
+              start: 'handle-0',
+              end: 'row-right',
+              dotStart: document.getElementById('dot-4-left'),
+              dotEnd: null
+            }
+          ],
+          pitches: [246.9] // B3
+        }
+      ];
+
+      // Sound synthesis context
+      var audioCtx = null;
+      function playNote(freq) {
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          var osc = audioCtx.createOscillator();
+          var gain = audioCtx.createGain();
+
+          // Warm string-like wave
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+          // Warm pluck envelope
+          gain.gain.setValueAtTime(0, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 1.2);
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+
+      // Initialize wobble animation states
+      rows.forEach(function (r) {
+        r.paths.forEach(function (p) {
+          p.wobble = {
+            active: false,
+            amplitude: 0,
+            frequency: 24,
+            decay: 0.90,
+            phase: 0,
+            raf: null
+          };
+        });
+      });
+
+      function triggerWobble(pathObj, startAmp) {
+        var w = pathObj.wobble;
+        w.amplitude = startAmp;
+        w.phase = 0;
+        if (w.active) return;
+        w.active = true;
+
+        (function tick() {
+          w.phase += 0.45;
+          w.amplitude *= w.decay;
+
+          if (w.amplitude < 0.08) {
+            w.active = false;
+            w.amplitude = 0;
+            drawPaths();
+          } else {
+            drawPaths();
+            w.raf = requestAnimationFrame(tick);
+          }
+        })();
+      }
+
+      function getHandleX(row, idx) {
+        var rEl = document.getElementById(row.id);
+        var h = row.handles[idx];
+        return (h.xPct / 100) * rEl.clientWidth;
+      }
+
+      function setHandleX(row, idx, xPx) {
+        var rEl = document.getElementById(row.id);
+        var pct = Math.max(0, Math.min(100, (xPx / rEl.clientWidth) * 100));
+        row.handles[idx].xPct = pct;
+        row.handles[idx].el.style.left = pct + '%';
+      }
+
+      function drawPaths() {
+        rows.forEach(function (r) {
+          var rEl = document.getElementById(r.id);
+          var width = rEl.clientWidth;
+          var height = rEl.clientHeight;
+          var centerY = height / 2;
+
+          // Get text bounding box
+          var textLeft = 0;
+          var textRight = width;
+          if (r.text) {
+            var textRect = r.text.getBoundingClientRect();
+            var rRect = rEl.getBoundingClientRect();
+            textLeft = textRect.left - rRect.left;
+            textRight = textRect.right - rRect.left;
+          }
+
+          r.paths.forEach(function (pathObj, pathIdx) {
+            var startX = 0;
+            var endX = width;
+
+            // Resolve start X
+            if (pathObj.start === 'text-right') {
+              startX = textRight;
+            } else if (pathObj.start.indexOf('handle-') === 0) {
+              var hIdx = parseInt(pathObj.start.split('-')[1]);
+              startX = getHandleX(r, hIdx);
+            }
+
+            // Resolve end X
+            if (pathObj.end === 'text-left') {
+              endX = textLeft;
+            } else if (pathObj.end.indexOf('handle-') === 0) {
+              var hIdx2 = parseInt(pathObj.end.split('-')[1]);
+              endX = getHandleX(r, hIdx2);
+            } else if (pathObj.end === 'row-right') {
+              endX = width;
+            }
+
+            // Draw path (straight or wobbled)
+            var w = pathObj.wobble;
+            var d = '';
+            if (w.active && w.amplitude > 0.08) {
+              var midX = (startX + endX) / 2;
+              var wobbleY = centerY + w.amplitude * Math.sin(w.phase);
+              d = 'M ' + startX + ' ' + centerY + ' Q ' + midX + ' ' + wobbleY + ' ' + endX + ' ' + centerY;
+            } else {
+              d = 'M ' + startX + ' ' + centerY + ' L ' + endX + ' ' + centerY;
+            }
+            pathObj.el.setAttribute('d', d);
+
+            // Position attached dot circles
+            if (pathObj.dotStart) {
+              pathObj.dotStart.setAttribute('cx', startX);
+              pathObj.dotStart.setAttribute('cy', centerY);
+            }
+            if (pathObj.dotEnd) {
+              pathObj.dotEnd.setAttribute('cx', endX);
+              pathObj.dotEnd.setAttribute('cy', centerY);
+            }
+          });
+        });
+      }
+
+      // Drag handlers binding
+      rows.forEach(function (r) {
+        var rEl = document.getElementById(r.id);
+        r.handles.forEach(function (h, hIdx) {
+          h.el.addEventListener('pointerdown', function (e) {
+            e.preventDefault();
+            h.el.setPointerCapture(e.pointerId);
+
+            var initialX = e.clientX;
+            var startXPct = h.xPct;
+            var rRect = rEl.getBoundingClientRect();
+            var w = rEl.clientWidth;
+
+            function onPointerMove(moveEvent) {
+              var dx = moveEvent.clientX - initialX;
+              var newXPx = (startXPct / 100) * w + dx;
+
+              // Drag constraint limits
+              var minX = 0;
+              var maxX = w;
+
+              if (h.bounds.min === 'text-right' && r.text) {
+                var textRect = r.text.getBoundingClientRect();
+                minX = textRect.right - rRect.left + 12;
+              } else if (typeof h.bounds.min === 'number') {
+                minX = (h.bounds.min / 100) * w;
+              } else if (h.bounds.min.indexOf('handle-') === 0) {
+                var minHIdx = parseInt(h.bounds.min.split('-')[1]);
+                minX = getHandleX(r, minHIdx) + 24;
+              }
+
+              if (h.bounds.max === 'text-left' && r.text) {
+                var textRect = r.text.getBoundingClientRect();
+                maxX = textRect.left - rRect.left - 12;
+              } else if (typeof h.bounds.max === 'number') {
+                maxX = (h.bounds.max / 100) * w;
+              } else if (h.bounds.max.indexOf('handle-') === 0) {
+                var maxHIdx = parseInt(h.bounds.max.split('-')[1]);
+                maxX = getHandleX(r, maxHIdx) - 24;
+              }
+
+              newXPx = Math.max(minX, Math.min(maxX, newXPx));
+              setHandleX(r, hIdx, newXPx);
+              drawPaths();
+            }
+
+            function onPointerUp(upEvent) {
+              h.el.releasePointerCapture(upEvent.pointerId);
+              window.removeEventListener('pointermove', onPointerMove);
+              window.removeEventListener('pointerup', onPointerUp);
+
+              // Sound pluck play
+              var pitch = r.pitches[hIdx] || r.pitches[0];
+              playNote(pitch);
+
+              // Oscillate associated strings
+              r.paths.forEach(function (p) {
+                if (p.start === 'handle-' + hIdx || p.end === 'handle-' + hIdx) {
+                  triggerWobble(p, 16);
+                }
+              });
+            }
+
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+          });
+        });
+      });
+
+      // Pluck swipe hover event
+      rows.forEach(function (r) {
+        var rEl = document.getElementById(r.id);
+
+        rEl.addEventListener('mouseenter', function () {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+        });
+
+        // Swipe trigger on crossing line
+        var lastY = null;
+        rEl.addEventListener('mousemove', function (e) {
+          var rect = rEl.getBoundingClientRect();
+          var relativeY = e.clientY - rect.top;
+          var relativeX = e.clientX - rect.left;
+          var centerY = rect.height / 2;
+
+          if (lastY !== null) {
+            // Check if crossed the horizontal centerline
+            if ((lastY < centerY && relativeY >= centerY) || (lastY > centerY && relativeY <= centerY)) {
+              r.paths.forEach(function (p, pIdx) {
+                var w = p.wobble;
+                if (!w.active) {
+                  var startX = 0, endX = rect.width;
+                  if (p.start === 'text-right' && r.text) startX = r.text.getBoundingClientRect().right - rect.left;
+                  else if (p.start.indexOf('handle-') === 0) startX = getHandleX(r, parseInt(p.start.split('-')[1]));
+
+                  if (p.end === 'text-left' && r.text) endX = r.text.getBoundingClientRect().left - rect.left;
+                  else if (p.end.indexOf('handle-') === 0) endX = getHandleX(r, parseInt(p.end.split('-')[1]));
+                  else if (p.end === 'row-right') endX = rect.width;
+
+                  if (relativeX >= startX && relativeX <= endX) {
+                    triggerWobble(p, 8);
+                    var pitch = r.pitches[pIdx] || r.pitches[0];
+                    playNote(pitch);
+                  }
+                }
+              });
+            }
+          }
+          lastY = relativeY;
+        });
+
+        rEl.addEventListener('mouseleave', function () {
+          lastY = null;
+        });
+      });
+
+      window.addEventListener('resize', drawPaths);
+      setTimeout(drawPaths, 300);
+    })();
+  </script>
+
+  <!-- ── Flip Card JS ── -->
+  <script>
+    function flipCard(id) {
+      document.getElementById(id).classList.toggle('flipped');
+    }
+  </script>
+
+  <!-- ── Curso Carousel JS ── -->
+  <script>
+    (function () {
+      var active = 0;
+      var N = 3;
+
+      function setCardTextStyles(card, isActive) {
+        var title = card.querySelector('.curso-title');
+        var desc = card.querySelector('.curso-desc');
+        var num = card.querySelector('.curso-num');
+
+        if (title) title.style.color = isActive ? '#F5F2EB' : '#2D1610';
+        if (desc) desc.style.color = isActive ? 'rgba(244,239,234,0.88)' : '#4E4139';
+        if (num) num.style.color = isActive ? '#C8A87A' : '#C84B0A';
+      }
+
+      function render() {
+        var leftIdx = (active - 1 + N) % N;
+        var rightIdx = (active + 1) % N;
+
+        var cardL = document.getElementById('curso-card-' + leftIdx);
+        var cardC = document.getElementById('curso-card-' + active);
+        var cardR = document.getElementById('curso-card-' + rightIdx);
+
+        if (!cardC) return;
+
+        // Left Card
+        cardL.style.transform = 'translateX(-390px) scale(0.9)';
+        cardL.style.opacity = '0.7';
+        cardL.style.zIndex = '5';
+        cardL.style.background = '#FFFFFF';
+        cardL.style.boxShadow = '0 8px 30px rgba(45,22,16,0.10)';
+        cardL.style.pointerEvents = 'auto';
+        setCardTextStyles(cardL, false);
+
+        // Center Card (Active)
+        cardC.style.transform = 'translateX(0px) scale(1)';
+        cardC.style.opacity = '1';
+        cardC.style.zIndex = '10';
+        cardC.style.background = '#6B1A1A';
+        cardC.style.boxShadow = '0 28px 70px rgba(107,26,26,0.40)';
+        cardC.style.pointerEvents = 'none';
+        setCardTextStyles(cardC, true);
+
+        // Right Card
+        cardR.style.transform = 'translateX(390px) scale(0.9)';
+        cardR.style.opacity = '0.7';
+        cardR.style.zIndex = '5';
+        cardR.style.background = '#FFFFFF';
+        cardR.style.boxShadow = '0 8px 30px rgba(45,22,16,0.10)';
+        cardR.style.pointerEvents = 'auto';
+        setCardTextStyles(cardR, false);
+      }
+
+      window.cursoNext = function () {
+        active = (active + 1) % N;
+        render();
+      };
+
+      window.cursoPrev = function () {
+        active = (active - 1 + N) % N;
+        render();
+      };
+
+      window.selectCurso = function (idx) {
+        if (active === idx) return;
+        active = idx;
+        render();
+      };
+
+      /* Arrow hover: swap icon stroke to white when bg turns bordo */
+      ['curso-prev-btn', 'curso-next-btn'].forEach(function (id) {
+        var btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('mouseenter', function () {
+          var path = btn.querySelector('path');
+          if (path) path.setAttribute('stroke', '#fff');
+        });
+        btn.addEventListener('mouseleave', function () {
+          var path = btn.querySelector('path');
+          if (path) path.setAttribute('stroke', '#6B1A1A');
+        });
+      });
+
+      render();
+    })();
+  </script>
+
+  <!-- ── Testimonios Carousel JS ── -->
+  <script>
+    (function () {
+      var currentIdx = 0;
+      var totalSlides = 5;
+      var autoCycleInterval;
+      
+      window.gotoTestimonio = function (idx) {
+        if (idx < 0 || idx >= totalSlides) return;
+        currentIdx = idx;
+        
+        // Update slides active state
+        var slides = document.querySelectorAll('.testimonio-slide');
+        slides.forEach(function (slide, i) {
+          if (i === idx) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+        
+        // Update dots active state
+        var dots = document.querySelectorAll('.testimonio-dot');
+        dots.forEach(function (dot, i) {
+          if (i === idx) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+        
+        // Reset auto cycle timer on user interaction
+        startAutoCycle();
+      };
+      
+      function startAutoCycle() {
+        clearInterval(autoCycleInterval);
+        autoCycleInterval = setInterval(function () {
+          var nextIdx = (currentIdx + 1) % totalSlides;
+          gotoTestimonio(nextIdx);
+        }, 6000); // 6 seconds slide duration
+      }
+      
+      // Start auto cycle initially
+      startAutoCycle();
+    })();
+  </script>
+
+</body>
+
+</html>
